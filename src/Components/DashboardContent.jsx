@@ -18,6 +18,13 @@ const eStampData = [
   { name: 'Expired', count: 10 },
 ];
 
+const eSignData = [
+  { name: 'Initiated', count: 25 },
+  { name: 'Pending', count: 15 },
+  { name: 'Signed', count: 35 },
+  { name: 'Expired', count: 5 },
+];
+
 const DashboardContent = () => {
   const [startDate, setStartDate] = useState(new Date('2020-03-01'));
 
@@ -87,6 +94,21 @@ const DashboardContent = () => {
               <Tooltip />
               <Legend />
               <Bar dataKey="count" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </section>
+      </div>
+
+      <div className="box">
+        <section className="e-sign-graph">
+          <h3>E-Sign Count</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={eSignData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="count" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
         </section>
