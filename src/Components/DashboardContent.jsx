@@ -12,18 +12,20 @@ const pieData = [
 ];
 
 const eStampData = [
-  { name: 'Initiated', count: 30 },
-  { name: 'Pending', count: 20 },
-  { name: 'Spined', count: 40 },
-  { name: 'Expired', count: 10 },
+  { name: 'Initiated', value: 30 },
+  { name: 'Pending', value: 20 },
+  { name: 'Spined', value: 40 },
+  { name: 'Expired', value: 10 },
 ];
 
 const eSignData = [
-  { name: 'Initiated', count: 25 },
-  { name: 'Pending', count: 15 },
-  { name: 'Signed', count: 35 },
-  { name: 'Expired', count: 5 },
+  { name: 'Initiated', value: 25 },
+  { name: 'Pending', value: 15 },
+  { name: 'Signed', value: 35 },
+  { name: 'Expired', value: 5 },
 ];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const DashboardContent = () => {
   const [startDate, setStartDate] = useState(new Date('2020-03-01'));
@@ -88,13 +90,24 @@ const DashboardContent = () => {
         <section className="e-stamp-graph">
           <h3>E-Stamp Count</h3>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={eStampData}>
-              <XAxis dataKey="name" />
-              <YAxis />
+            <PieChart>
+              <Pie
+                data={eStampData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {eStampData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
               <Tooltip />
               <Legend />
-              <Bar dataKey="count" fill="#8884d8" />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
         </section>
       </div>
@@ -103,13 +116,24 @@ const DashboardContent = () => {
         <section className="e-sign-graph">
           <h3>E-Sign Count</h3>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={eSignData}>
-              <XAxis dataKey="name" />
-              <YAxis />
+            <PieChart>
+              <Pie
+                data={eSignData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                outerRadius={80}
+                fill="#82ca9d"
+                dataKey="value"
+              >
+                {eSignData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
               <Tooltip />
               <Legend />
-              <Bar dataKey="count" fill="#82ca9d" />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
         </section>
       </div>
